@@ -1,0 +1,38 @@
+{
+  "name": "recetas-hacendado-backend",
+  "version": "1.0.0",
+  "description": "API REST para la app Recetas Hacendado — CyberPandas",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "migrate": "node src/database/migrate.js",
+    "seed": "node src/database/seeds/run-seeds.js",
+    "setup-db": "node src/database/migrate.js && node src/database/seeds/run-seeds.js",
+    "import:mercadona": "node src/database/import-mercadona-catalog.js",
+    "import:hogarmania": "node src/scripts/scrape-hogarmania.js"
+  },
+  "keywords": [
+    "mercadona",
+    "recetas",
+    "hacendado"
+  ],
+  "author": "CyberPandas",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.16.1",
+    "bcryptjs": "^3.0.3",
+    "cheerio": "^1.2.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "groq-sdk": "^1.2.1",
+    "joi": "^18.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.1.1",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
