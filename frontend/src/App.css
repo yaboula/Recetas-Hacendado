@@ -1,0 +1,7 @@
+/* Recetas Hacendado — App-level styles intentionally minimal.
+   All system styling lives in index.css + tailwind tokens. */
+
+.App {
+  min-height: 100vh;
+  background-color: #F7F4EE;
+}
