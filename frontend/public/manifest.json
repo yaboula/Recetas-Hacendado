@@ -1,0 +1,44 @@
+{
+  "name": "Recetas Hacendado",
+  "short_name": "Recetas",
+  "description": "Cocina bien. Compra inteligente. Recetas con productos Hacendado.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F5F5F5",
+  "theme_color": "#00AA5B",
+  "lang": "es",
+  "categories": ["food", "shopping", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Mi lista de la compra",
+      "short_name": "Mi lista",
+      "description": "Accede directamente a tu lista",
+      "url": "/lista",
+      "icons": [{ "src": "/icon-192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Catálogo de recetas",
+      "short_name": "Recetas",
+      "description": "Busca recetas de temporada",
+      "url": "/",
+      "icons": [{ "src": "/icon-192.svg", "sizes": "192x192" }]
+    }
+  ]
+}
