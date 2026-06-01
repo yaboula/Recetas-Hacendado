@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetas Hacendado - Presentación del Proyecto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #00aa5a;
+            --dark-green: #006736;
+            --light-green: #e6f6ef;
+            --text-dark: #121826;
+            --text-gray: #4b5563;
+            --bg-body: #f8fafc;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            --border-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-dark);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--white);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--dark-green);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--primary-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 5%;
+            text-align: center;
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-green) 100%);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-green);
+            border-radius: 2px;
+        }
+
+        /* Product Vision */
+        .vision-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .vision-card {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+
+        .vision-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .vision-card p {
+            color: var(--text-gray);
+        }
+
+        /* Product Backlog */
+        .backlog-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .story-card {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary-green);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .story-id {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            color: var(--text-gray);
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .story-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .story-desc {
+            color: var(--text-gray);
+            font-style: italic;
+        }
+
+        /* Mockups Section */
+        .mockups-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .mockup-item {
+            text-align: center;
+        }
+
+        .mockup-item img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: var(--shadow-lg);
+            border: 8px solid var(--white);
+            transition: transform 0.4s ease;
+        }
+
+        .mockup-item img:hover {
+            transform: scale(1.02) translateY(-10px);
+        }
+
+        .mockup-item h4 {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: var(--dark-green);
+        }
+        
+        .mockup-item p {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        footer p {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .vision-grid {
+                grid-template-columns: 1fr;
+            }
+            .mockups-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-green);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            Recetas <span>Hacendado</span>
+        </div>
+        <div>
+            <a href="#vision" style="text-decoration: none; color: var(--text-dark); font-weight: 500; margin-left: 20px;">Visión</a>
+            <a href="#backlog" style="text-decoration: none; color: var(--text-dark); font-weight: 500; margin-left: 20px;">Pila del Producto</a>
+            <a href="#bocetos" style="text-decoration: none; color: var(--text-dark); font-weight: 500; margin-left: 20px;">Bocetos</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <span class="badge">Gestión de Proyectos - Scrum</span>
+        <h1>De la inspiración a la cesta en un solo clic.</h1>
+        <p>Una aplicación inteligente que te sugiere recetas semanales y añade automáticamente todos los ingredientes específicos de Mercadona a tu lista de la compra digital.</p>
+    </section>
+
+    <!-- Visión del Producto -->
+    <section id="vision" class="container">
+        <div class="section-header">
+            <h2>Visión del Producto</h2>
+        </div>
+        <div class="vision-grid">
+            <div class="vision-card">
+                <div class="icon-box">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                </div>
+                <h3>El Problema</h3>
+                <p>A menudo, los clientes (a los que Mercadona llama "El Jefe") no saben qué cocinar durante la semana o qué ingredientes comprar para una receta en concreto. Además, buscar los productos uno por uno en la tienda requiere más tiempo y esfuerzo.</p>
+            </div>
+            <div class="vision-card">
+                <div class="icon-box">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <h3>La Solución</h3>
+                <p>Proponemos una aplicación móvil llamada <strong>Recetas Hacendado</strong>. La app ofrece ideas de comidas para la semana. Cuando el usuario elige una receta, todos los ingredientes (de la marca Hacendado) se añaden de forma automática a una lista de la compra digital. Así facilitamos y hacemos más rápida la experiencia en el supermercado.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pila del Producto (Product Backlog) -->
+    <section id="backlog" class="container" style="background-color: var(--white); border-radius: var(--border-radius); box-shadow: var(--shadow-sm); padding-top: 60px; padding-bottom: 60px;">
+        <div class="section-header">
+            <h2>Pila del Producto (Product Backlog)</h2>
+            <p style="color: var(--text-gray); margin-top: 10px;">Listado inicial priorizado de historias de usuario necesarias para el proyecto</p>
+        </div>
+        
+        <div class="backlog-list">
+            
+            <div class="story-card">
+                <div class="story-header">
+                    <span class="story-title">Catálogo Visual de Recetas Semanales</span>
+                    <span class="story-id">HU-01</span>
+                </div>
+                <p class="story-desc">"Como usuario de Mercadona, quiero poder ver una lista seleccionada e inspiradora de recetas cada semana, para planificar mis comidas sin tener que pensar demasiado."</p>
+            </div>
+
+            <div class="story-card">
+                <div class="story-header">
+                    <span class="story-title">Ficha de Receta vinculada a Productos Hacendado</span>
+                    <span class="story-id">HU-02</span>
+                </div>
+                <p class="story-desc">"Como usuario, quiero entrar en el detalle de una receta y ver no solo los pasos a cocinar, sino los ingredientes exactos mapeados con productos reales de la marca Hacendado, para tener garantías de que lo puedo comprar en mi tienda."</p>
+            </div>
+
+            <div class="story-card">
+                <div class="story-header">
+                    <span class="story-title">Añadir a la Lista en "One-Click"</span>
+                    <span class="story-id">HU-03</span>
+                </div>
+                <p class="story-desc">"Como usuario, quiero un botón para añadir directamente todos los productos necesarios de esa receta a mi lista de la compra digital, para ahorrar tiempo buscando productos individuales."</p>
+            </div>
+
+            <div class="story-card">
+                <div class="story-header">
+                    <span class="story-title">Gestión de Lista de Compra Digital</span>
+                    <span class="story-id">HU-04</span>
+                </div>
+                <p class="story-desc">"Como cliente visitando la tienda física de Mercadona, quiero abrir la lista de la compra generada e ir 'tachando' los productos que meto en el carro físico, para asegurarme de no olvidar nada."</p>
+            </div>
+
+            <div class="story-card">
+                <div class="story-header">
+                    <span class="story-title">Filtros de Preferencias Alimentarias</span>
+                    <span class="story-id">HU-05</span>
+                </div>
+                <p class="story-desc">"Como usuario con restricciones dietéticas (ej. celiaco, vegano), quiero filtrar las sugerencias de recetas semanales para ver solo aquellas compatibles con mis hábitos, asegurando que todos los ingredientes derivados sean Aptos."</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Bocetos (Visual Thinking) -->
+    <section id="bocetos" class="container">
+        <div class="section-header">
+            <h2>Primeros Bocetos (Visual Thinking)</h2>
+            <p style="color: var(--text-gray); margin-top: 10px;">Wireframes conceptuales y propuestas de interfaz moderna basada en la imagen visual de marca.</p>
+        </div>
+
+        <div class="mockups-grid">
+            <div class="mockup-item">
+                <img src="img/mockup_home.png" alt="Pantalla Inicio - Recetas Semanales">
+                <h4>1. Home: Recetas Semanales</h4>
+                <p>Navegación fluida por platos inspiradores.</p>
+            </div>
+            <div class="mockup-item">
+                <img src="img/mockup_detalle.png" alt="Pantalla Detalle de Receta">
+                <h4>2. Detalle del Plato</h4>
+                <p>Ingredientes con productos Hacendado ligados a la ficha y botón de compra.</p>
+            </div>
+            <div class="mockup-item">
+                <img src="img/mockup_lista.png" alt="Pantalla Lista de la Compra">
+                <h4>3. Checklist Interactivo</h4>
+                <p>Comprueba tus compras al pasar por los pasillos de la tienda real.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h3 style="color: white; margin-bottom: 10px; font-family: 'Outfit', sans-serif;">Proyecto "Recetas Hacendado"</h3>
+        <p>Trabajo académico para la asignatura de Gestión de Proyectos Universitarios.</p>
+    </footer>
+
+</body>
+</html>

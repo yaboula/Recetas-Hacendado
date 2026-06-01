@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrega - Scrum Mercadona CyberPandas</title>
+    <style>
+        @page {
+            margin: 20mm;
+            size: A4;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: none;
+            margin-bottom: 5px;
+            color: #008940; /* Mercadona Green approx */
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+        .team-info {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #008940;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            page-break-inside: auto;
+        }
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #008940;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .section {
+            page-break-inside: avoid;
+            margin-bottom: 30px;
+        }
+        .real-image {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 20px 0;
+            page-break-inside: avoid;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Scrum Mercadona - CyberPandas</h1>
+    <p class="subtitle">Planificación y Configuración en OpenProject</p>
+
+    <div class="team-info">
+        <strong>Equipo CyberPandas:</strong>
+        <ul style="margin-top: 5px; margin-bottom: 0;">
+            <li><strong>Yahini</strong> (Scrum Master)</li>
+            <li><strong>Oliver</strong> (Product Owner)</li>
+            <li><strong>Desarrolladores:</strong> Safwat, Alexandre, Souhail, Yahya, Mohamed</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>1. Introducción y Configuración</h2>
+        <p>
+            Hemos implementado el flujo de trabajo Scrum para el proyecto <strong>Mercadona</strong> en <strong>OpenProject</strong>.
+            Se han creado los miembros del equipo y se les han asignado sus roles correspondientes para gestionar el ciclo de vida del producto.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>2. Planificación y Backlog</h2>
+        <p>
+            El proyecto se ha dividido en 5 fases principales (Preparación, 3 Sprints y Cierre). A continuación se detalla la lista de tareas (Work Packages) importadas en OpenProject con sus estimaciones, responsables y dependencias aplicadas mediante programación hacia adelante (Forward Scheduling) con inicio el <strong>15 de abril de 2026</strong>, agrupadas en un plazo de aproximadamente un mes real de trabajo continuo.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Fase</th>
+                    <th>ID</th>
+                    <th>Tarea</th>
+                    <th>Duración (días)</th>
+                    <th>Resp. principal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1. Preparación</td><td>T1.1</td><td>Configuración OpenProject y Tablero Scrum</td><td>1</td><td>Yahini</td></tr>
+                <tr><td>1. Preparación</td><td>T1.2</td><td>Redacción de Casos de Uso (HU-01 a HU-05)</td><td>2</td><td>Oliver</td></tr>
+                <tr><td>1. Preparación</td><td>T1.3</td><td>Configuración Entorno de Desarrollo y GitHub</td><td>1</td><td>Safwat</td></tr>
+                <tr><td>2. Sprint 1</td><td>T2.1</td><td>Sprint 1 Planning (Catálogo y Recetas)</td><td>1</td><td>Yahini</td></tr>
+                <tr><td>2. Sprint 1</td><td>T2.2</td><td>Desarrollo HU-01 (Catálogo Visual)</td><td>3</td><td>Souhail</td></tr>
+                <tr><td>2. Sprint 1</td><td>T2.3</td><td>Desarrollo HU-02 (Ficha de Receta Hacendado)</td><td>3</td><td>Mohamed</td></tr>
+                <tr><td>2. Sprint 1</td><td>T2.4</td><td>Sprint 1 Review & Retrospective</td><td>1</td><td>Yahini</td></tr>
+                <tr><td>3. Sprint 2</td><td>T3.1</td><td>Sprint 2 Planning (Integración de Compra)</td><td>1</td><td>Yahini</td></tr>
+                <tr><td>3. Sprint 2</td><td>T3.2</td><td>Desarrollo HU-03 (Añadir a lista 1-Click)</td><td>3</td><td>Alexandre</td></tr>
+                <tr><td>3. Sprint 2</td><td>T3.3</td><td>Desarrollo HU-04 (Gestión Lista Digital)</td><td>3</td><td>Yahya</td></tr>
+                <tr><td>3. Sprint 2</td><td>T3.4</td><td>Sprint 2 Review & Retrospective</td><td>1</td><td>Yahini</td></tr>
+                <tr><td>4. Sprint 3</td><td>T4.1</td><td>Sprint 3 Planning (Filtros y Pruebas)</td><td>1</td><td>Yahini</td></tr>
+                <tr><td>4. Sprint 3</td><td>T4.2</td><td>Desarrollo HU-05 (Filtros Preferencias Alimentarias)</td><td>2</td><td>Safwat</td></tr>
+                <tr><td>4. Sprint 3</td><td>T4.3</td><td>Pruebas de Integración y Corrección de Bugs</td><td>1</td><td>Souhail</td></tr>
+                <tr><td>4. Sprint 3</td><td>T4.4</td><td>Documentación Final y Cierre de Repositorio</td><td>1</td><td>Yahini</td></tr>
+                <tr><td>5. Cierre</td><td>T5.1</td><td>Preparación Presentación Final</td><td>1</td><td>Yahini</td></tr>
+                <tr><td>5. Cierre</td><td>T5.2</td><td>Defensa Oral y Demostración Pública</td><td>1</td><td>Yahini</td></tr>
+            </tbody>
+        </table>
+        
+        <img src="Scrum-Mercadona-CyberPandas-main/assets/workpackage.png" class="real-image" alt="Work Packages" />
+    </div>
+
+    <div class="section">
+        <h2>3. Diagrama de Gantt</h2>
+        <p>
+            El cronograma detalla las dependencias (Finish-to-Start) establecidas. Durante la ejecución en OpenProject, los fines de semana se saltan de forma automática, garantizando estimaciones de duración precisas para días laborables a lo largo del mes de desarrollo.
+        </p>
+        
+        <img src="Scrum-Mercadona-CyberPandas-main/assets/gant_map.png" class="real-image" alt="Gantt Chart" style="max-height: 450px;" />
+    </div>
+
+</body>
+</html>
