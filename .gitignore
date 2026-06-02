@@ -50,6 +50,7 @@ backend/temp_dataset/
 # ─────────────────────────────────────────────
 # Development artifacts (should not be committed)
 # ─────────────────────────────────────────────
+scripts/
 cursor_receta*.txt
 git_log*.txt
 *.cjs.bak
