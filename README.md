@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="img/logo_mercadona.png" alt="Recetas Hacendado" width="120" />
-</p>
-
 <h1 align="center">Recetas Hacendado</h1>
 
 <p align="center">
