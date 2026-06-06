@@ -1,351 +1,239 @@
-<h1 align="center">Recetas Hacendado</h1>
+# Recetas Hacendado
 
-<p align="center">
-  <strong>A full-stack recipe app built around Mercadona's Hacendado brand, with AI-powered meal planning, voice-controlled cooking, and a smart shopping list.</strong>
-</p>
+Academic full-stack project for recipe planning, supermarket-aware shopping lists, and AI-assisted meal planning.
 
-<p align="center">
-  <a href="#features"><img src="https://img.shields.io/badge/Features-15+-4CAF50?style=flat-square" alt="Features" /></a>
-  <a href="#tech-stack"><img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React 19" /></a>
-  <a href="#tech-stack"><img src="https://img.shields.io/badge/Node.js-Express_5-339933?style=flat-square&logo=node.js" alt="Node.js" /></a>
-  <a href="#tech-stack"><img src="https://img.shields.io/badge/PostgreSQL-Supabase-4169E1?style=flat-square&logo=postgresql" alt="PostgreSQL" /></a>
-  <a href="#tech-stack"><img src="https://img.shields.io/badge/AI-Groq_Llama_3-FF4F00?style=flat-square" alt="Groq AI" /></a>
-  <a href="#tech-stack"><img src="https://img.shields.io/badge/Tailwind_CSS-4.0-06B6D4?style=flat-square&logo=tailwindcss" alt="Tailwind" /></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License" /></a>
-</p>
+> This project was developed for academic purposes in a university context. It is not an official Mercadona or Hacendado product, nor is it affiliated with, endorsed by, or deployed by Mercadona as a commercial service.
 
-<p align="center">
-  Selected as <strong>Top 3 out of 12 teams</strong> in our university's Project Management course (GII).
-</p>
+## At a Glance
 
----
+- **Context:** university project developed by the CyberPandas team in a Project Management / Software Engineering setting.
+- **Industry input:** built with collaboration and feedback from Mercadona's team during the academic challenge.
+- **Result:** selected as **2nd out of 12 teams** in the academic competition.
+- **Problem solved:** helps users choose recipes, map ingredients to supermarket products, estimate cost, and consolidate a practical shopping list.
+- **Scope:** full-stack web app with authentication, recipe catalog, shopping list engine, favorites, AI recipe assistance, pantry scanner, and weekly meal planner.
 
-## What is this project?
+## Project Context
 
-This is a recipe web app designed specifically for **Mercadona** (Spain's largest supermarket chain). The idea is simple: you pick a recipe, and the app tells you exactly which **Hacendado** products you need to buy, how many packages, and how much it's going to cost you. Everything maps to real products you can find at the store.
+Recetas Hacendado was created as a university academic project, not as a commercial product. The challenge was to solve a realistic supermarket and recipe-planning problem using full-stack development, AI features, and Scrum delivery practices.
 
-But it goes beyond just listing ingredients. The app includes a full hands-free cooking mode with voice narration and commands, an AI assistant that suggests recipes based on what you have in your fridge, a weekly meal planner powered by Groq's Llama 3 model, and a smart shopping list that consolidates ingredients across multiple recipes and groups them by supermarket aisle.
+The team received collaboration and feedback from Mercadona's team as part of the university environment. In a competitive academic setting with 12 teams, our team was selected as 2nd. The final result is presented here as a professional academic portfolio project: honest about its origin, but polished enough to discuss architecture, product decisions, and engineering trade-offs in internship interviews.
 
-This was built as a team project (CyberPandas) using Scrum methodology across 4 sprints, but I was responsible for the majority of the development on both frontend and backend.
+## Main Features
 
----
+- **Recipe catalog:** searchable recipes with images, difficulty, time, dietary tags, and detailed recipe pages.
+- **Recipe detail:** ingredients mapped to products, dynamic serving scaling, price estimation, cooking steps, tips, FAQ, reviews, and related recipes.
+- **Hands-free cooking mode:** step-by-step cooking overlay with text-to-speech, voice commands, timers, wake lock, haptic feedback, and progress persistence.
+- **Smart shopping list:** consolidates ingredients across recipes, calculates required packages, groups products by supermarket section, tracks pantry items, supports product alternatives, manual product search, sharing, and estimated total cost.
+- **AI assistant:** suggests recipes from the app catalog based on preferences, mood, time, or available ingredients.
+- **Pantry scanner:** suggests zero-waste recipes from ingredients the user already has.
+- **AI weekly planner:** generates a 3-7 day meal plan with dietary preferences, goals, total cooking time, shopping advice, and one-click add-to-list.
+- **Authentication and profile:** JWT auth, registration, login, dietary preference onboarding, favorites, profile editing, and password update.
 
-## Features
+## Screenshots / Demo
 
-### Hands-Free Cooking Mode
+The repository includes full-page app screenshots in the `img/` folder:
 
-This is probably the most interesting feature. When you open a recipe and tap "Open Cooking Mode", the app enters a fullscreen overlay that guides you step by step through the cooking process. The whole point is that you shouldn't need to touch your phone while cooking.
+| Home | Catalog | Shopping List | Planner |
+|------|---------|---------------|---------|
+| ![Home screen](img/app_home.png) | ![Catalog screen](img/app_catalogo.png) | ![Shopping list screen](img/app_lista.png) | ![Planner screen](img/app_planificador.png) |
 
-- **Text-to-Speech narration**: Each step is read aloud using the browser's native `SpeechSynthesis` API. The app tries to pick the best available Spanish voice on the device, prioritizing natural/premium voices over the robotic default ones (it looks for Google, Microsoft Natural, or Sabina voices).
-- **Voice commands**: You can say "siguiente" (next), "repite" (repeat), "anterior" (back), "inicia el temporizador" (start timer), or "pausa" to control the cooking flow without touching the screen. This uses the `SpeechRecognition` API in continuous mode.
-- **Smart timers**: The app parses each step's text looking for time references (e.g. "cook for 16-18 minutes", "let it rest for 1 hour"). When it detects one, it pre-loads a countdown timer that you can start with a tap or voice command. When the timer finishes, it plays a chime sound (generated with the Web Audio API oscillator), triggers vibration feedback (`navigator.vibrate`), and announces "Tiempo cumplido" through TTS.
-- **Wake Lock**: The screen stays on while you're cooking using the Screen Wake Lock API, with automatic re-acquisition when the tab becomes visible again.
-- **Progress persistence**: If you close the cooking mode or navigate away, it remembers which step you were on (saved in `localStorage`) so you can resume later.
-- **Swipe navigation**: You can swipe left/right on mobile to move between steps.
-- **AI-enhanced steps**: The cooking mode first tries to fetch an AI-optimized version of the steps from the backend (via `getCookingMode`), with better narration text. If the AI call fails, it falls back to the recipe's original steps.
-
-### AI Assistant ("What Should I Cook Today?")
-
-A bottom sheet component (`QueCocinoHoySheet`) that lets you chat with the Groq Llama 3 70B model to get recipe suggestions. The backend proxies the requests through the Groq SDK.
-
-- Ask for recipes based on mood, available time, number of diners, or specific ingredients
-- Voice input support using `SpeechRecognition` so you can dictate instead of typing
-- The assistant returns suggestions from the actual recipe catalog, not generic answers
-
-### Pantry Scanner
-
-A separate AI sheet (`EscanearDespensaSheet`) where you describe what ingredients you already have at home. The AI analyzes your input and suggests zero-waste recipes that use those ingredients, minimizing what you need to buy.
-
-### AI Weekly Meal Planner
-
-A full planner page (`PlanificadorPage`) where you can generate a complete weekly meal plan using AI:
-
-- Choose how many days (3 to 7)
-- Select dietary preferences (vegan, gluten-free, lactose-free, etc.)
-- Either write a custom goal or pick from quick templates ("fast dinners", "budget-friendly", "balanced", "family-sized", "light dinners", "use what I have")
-- Voice input for the goal description
-- The AI generates a plan with one recipe per day, including: the recipe name, a link to its detail page, cooking time, dietary tags, and a "reason for choosing" explanation
-- A summary card with total cooking time and overall stats
-- Shopping advice specific to the plan
-- "Add all to shopping list" button that adds every recipe from the plan in one click
-
-### Smart Shopping List
-
-Not a simple to-do list. It's actually doing math behind the scenes.
-
-- **Ingredient consolidation**: When you add multiple recipes that use the same ingredient (say olive oil), instead of listing it twice, the list sums the exact quantities needed across all recipes. So `250ml + 100ml = 350ml`.
-- **Package calculation**: The system knows the actual package sizes of Hacendado products. If you need 350ml of olive oil and the bottle is 500ml, it tells you to buy 1 bottle. You can manually adjust the number of packages.
-- **Aisle grouping**: Products are automatically sorted by supermarket section (Carnicería, Verdulería, Lácteos, Panadería, etc.) so your shopping trip follows a logical path through the store.
-- **"Already have it" section (Despensa)**: If you set a product's package count to 0, it moves to a "Ya lo tengo" section. These items don't count toward your total price but stay listed so you know they're needed for your recipes.
-- **Product swapping**: For any item in the list, you can open a side sheet that shows alternative products (different sizes, brands, or variants) and swap them. The system recalculates package counts automatically.
-- **Manual product search**: There's a search modal where you can search the entire Mercadona product catalog and add loose products to your list (things like milk, eggs, detergent) that aren't part of any recipe. It includes suggestion chips for common items.
-- **Real-time price estimation**: Shows the estimated total cost based on unit prices and number of full packages.
-- **Share list**: You can share your shopping list as formatted text (uses `navigator.share` on mobile or clipboard fallback) with all sections and quantities.
-- **Savings tracker**: Shows how much you're saving by already having some items at home.
-
-### Recipe Catalog and Detail Pages
-
-- **Recipe cards** with image, title, time, difficulty, and dietary tags
-- **Search and filtering** across the entire catalog
-- **Detail page** with editorial layout:
-  - Recipe image, description, rating, and author
-  - Dietary chips (Vegan, Gluten-Free, Lactose-Free, Egg-Free) with distinct visual styling
-  - Metadata bar: cooking time, base servings, difficulty, calories, and price
-  - **Dynamic portion scaling**: Change the number of servings with a stepper, and all ingredient quantities recalculate proportionally in real time
-  - **Grouped ingredients**: Ingredients are organized logically (e.g., "For the sauce", "For the dough") instead of a flat list. Each ingredient shows its Hacendado product thumbnail, brand, and price.
-  - **Step-by-step instructions** with numbered steps
-  - **Tips and tricks** section with cooking advice
-  - **FAQ section** with common questions and answers about the recipe
-  - **User reviews** with star ratings and comments
-  - **Related recipes** suggestions at the bottom
-  - **Sticky action bar** that appears when you scroll past the header, showing the recipe name, current servings, price, and quick buttons for cooking mode and adding to list
-  - **Country flags** for international recipes (using flag CDN URLs)
-
-### Authentication and User Profile
-
-- JWT-based authentication with bcrypt password hashing
-- Registration with email + password
-- Onboarding flow where new users select their dietary preferences
-- **Profile page** with:
-  - Activity summary dashboard: number of favorites, products in shopping list, pending items, total lists created
-  - Shopping progress bar (percentage of items purchased)
-  - Dietary preference management (toggle chips for each diet type)
-  - Personal data editing (name, email)
-  - Password change form with validation
-  - Logout
-
-### Favorites System
-
-- Toggle favorite on any recipe from the detail page (heart icon)
-- Dedicated favorites page listing all saved recipes
-- Stored per-user in PostgreSQL
-
----
-
-## Architecture
-
-```mermaid
-graph TB
-    subgraph Client ["Frontend — React 19 SPA"]
-        UI["UI Layer<br/>Tailwind CSS v4 + Framer Motion"]
-        PAGES["Pages<br/>Home · Catalog · Recipe Detail<br/>Shopping List · Planner · Profile"]
-        CTX["Context API<br/>Auth state + JWT token management"]
-        HOOKS["Custom Hooks<br/>useAuth · useRecipes · useLista"]
-        API_CLIENT["API Service Layer<br/>Axios with auth interceptors"]
-        BROWSER["Native Browser APIs<br/>SpeechSynthesis · SpeechRecognition<br/>Wake Lock · Vibration · Web Audio"]
-    end
-
-    subgraph Server ["Backend — Node.js + Express 5"]
-        ROUTES["REST API<br/>/api/v1/auth · /recetas · /lista<br/>/favoritos · /ai"]
-        MW["Middleware Stack<br/>JWT verification · CORS · Joi validation<br/>Error handler"]
-        MODULES["Business Logic<br/>Auth · Recipes · Shopping List<br/>Favorites · AI"]
-        GROQ["Groq SDK<br/>Llama 3 70B · Llama 4 Scout (vision)"]
-    end
-
-    subgraph Data ["Data Layer"]
-        PG["PostgreSQL on Supabase<br/>Users · Recipes · Ingredients<br/>Shopping Lists · Favorites"]
-    end
-
-    UI --> PAGES
-    PAGES --> CTX
-    PAGES --> HOOKS
-    PAGES --> BROWSER
-    HOOKS --> API_CLIENT
-    CTX --> API_CLIENT
-    API_CLIENT -->|HTTPS| ROUTES
-    ROUTES --> MW
-    MW --> MODULES
-    MODULES --> PG
-    MODULES --> GROQ
-
-    style Client fill:#1a1a2e,stroke:#61DAFB,color:#fff
-    style Server fill:#1a1a2e,stroke:#339933,color:#fff
-    style Data fill:#1a1a2e,stroke:#4169E1,color:#fff
-```
-
----
+Add a short demo video or GIF here when available, ideally showing: recipe selection -> add to shopping list -> package consolidation -> AI weekly planner.
 
 ## Tech Stack
 
-| Layer | Technology | Why |
-|-------|-----------|-----|
-| **Frontend** | React 19 + Vite 8 | Latest React with fast HMR |
-| **Styling** | Tailwind CSS v4 | Replicated Mercadona's design system with custom tokens |
-| **Animations** | Framer Motion | Page transitions and micro-interactions |
-| **Icons** | Lucide React | Tree-shakeable icon set |
-| **Routing** | React Router DOM v7 | Declarative routing with nested layouts |
-| **UI Primitives** | Radix UI (Dialog, Select) | Accessible, unstyled base components |
-| **Toasts** | Sonner | Lightweight toast notifications |
-| **Backend** | Node.js + Express 5 | Native async error handling |
-| **Auth** | JWT + bcryptjs | Stateless token-based sessions |
-| **Database** | PostgreSQL (Supabase) | Managed relational DB with connection pooling |
-| **AI** | Groq SDK (Llama 3 70B) | Fast inference for chat, meal planning, and cooking mode |
-| **Validation** | Joi | Request schema validation |
-| **Scraping** | Cheerio + Axios | Used during development to build the product catalog |
-| **Browser APIs** | Web Speech, Wake Lock, Vibration, Web Audio | Voice I/O, screen lock, haptic feedback, timer chimes |
+| Layer | Technology |
+|-------|------------|
+| Frontend | React 19, Vite 8, React Router, Tailwind CSS v4, Framer Motion, Radix UI, Lucide React |
+| Backend | Node.js, Express 5, Joi, JWT, bcryptjs |
+| Database | PostgreSQL hosted through Supabase |
+| AI | Groq SDK with Llama models for chat, planning, pantry analysis, and cooking-mode assistance |
+| Browser APIs | SpeechSynthesis, SpeechRecognition, Wake Lock, Vibration, Web Audio, Web Share |
+| Tooling | ESLint, npm lockfiles, GitHub Actions CI |
 
----
+## Architecture Overview
+
+```mermaid
+graph TB
+    subgraph Client["Frontend - React SPA"]
+        Pages["Pages: home, catalog, recipe, list, planner, profile"]
+        Components["Reusable UI and feature components"]
+        State["Auth context, local state, browser storage"]
+        ApiClient["Axios API client"]
+        BrowserApis["Browser APIs: speech, wake lock, share, audio"]
+    end
+
+    subgraph Server["Backend - Node.js + Express"]
+        Routes["REST routes: auth, recetas, lista, favoritos, ai"]
+        Middleware["JWT auth, validation, CORS, error handling"]
+        Services["Business services"]
+        Ai["Groq AI service"]
+    end
+
+    subgraph Data["Data Layer"]
+        Db["PostgreSQL / Supabase"]
+    end
+
+    Pages --> Components
+    Pages --> State
+    Pages --> BrowserApis
+    State --> ApiClient
+    ApiClient --> Routes
+    Routes --> Middleware
+    Middleware --> Services
+    Services --> Db
+    Services --> Ai
+```
 
 ## Project Structure
 
-```
+```text
 Scrum-Mercadona-CyberPandas/
-├── frontend/
-│   ├── src/
-│   │   ├── api/               # Axios service layer (auth, recetas, lista, favoritos, ai)
-│   │   ├── components/
-│   │   │   ├── ai/            # QueCocinoHoySheet, EscanearDespensaSheet
-│   │   │   ├── common/        # RecipeCard, Stepper, EmptyState
-│   │   │   ├── layout/        # AppShell with bottom navigation
-│   │   │   └── ui/            # Button, Sheet, Dialog, Spinner
-│   │   ├── context/           # AuthContext (JWT management)
-│   │   ├── hooks/             # Custom hooks
-│   │   ├── lib/               # Utilities, recipe adapters, speech helpers
-│   │   ├── pages/
-│   │   │   ├── HomePage.jsx          # Hero + featured recipes
-│   │   │   ├── CatalogoPage.jsx      # Full recipe catalog with filters
-│   │   │   ├── RecetaPage.jsx        # Recipe detail + cooking mode (1120 lines)
-│   │   │   ├── ListaPage.jsx         # Smart shopping list (658 lines)
-│   │   │   ├── PlanificadorPage.jsx  # AI weekly meal planner (552 lines)
-│   │   │   ├── ProfilePage.jsx       # User profile + stats dashboard
-│   │   │   ├── FavoritasPage.jsx     # Saved recipes
-│   │   │   ├── LoginPage.jsx         # Login form
-│   │   │   ├── RegisterPage.jsx      # Registration form
-│   │   │   └── OnboardingPage.jsx    # Dietary preference setup
-│   │   └── styles/
-│   └── package.json
-│
 ├── backend/
+│   ├── api/                    # Vercel serverless entrypoint
 │   ├── src/
-│   │   ├── config/            # Database pool
-│   │   ├── database/          # Migrations + seeds
-│   │   ├── middleware/        # JWT auth, error handler, CORS
-│   │   ├── modules/
-│   │   │   ├── auth/          # Register, login, profile, password change
-│   │   │   ├── recetas/       # CRUD, search, price calculation, cooking mode
-│   │   │   ├── lista/         # Shopping list engine, consolidation, alternatives
-│   │   │   ├── favoritos/     # Favorites toggle + list
-│   │   │   └── ai/            # Groq chat, meal planner, pantry scanner
-│   │   └── scripts/           # Scraping and data import
-│   └── package.json
-│
-├── docs/                      # Scrum artifacts and architecture docs
-├── scripts/                   # Dev utility scripts
-└── img/                       # Visual assets
+│   │   ├── config/             # Database connection
+│   │   ├── database/           # Migrations, seeds, import scripts
+│   │   ├── middleware/         # Auth, validation, error handling
+│   │   └── modules/            # auth, recetas, lista, favoritos, ai
+│   ├── server.js               # Local Express server
+│   ├── package.json
+│   └── .env.example
+├── frontend/
+│   ├── public/                 # PWA assets and recipe images
+│   ├── src/
+│   │   ├── api/                # API service layer
+│   │   ├── components/         # UI, layout, common, AI sheets
+│   │   ├── context/            # Auth context
+│   │   ├── hooks/              # Custom hooks
+│   │   ├── lib/                # Store, adapters, utilities, speech helpers
+│   │   ├── pages/              # App routes
+│   │   └── styles/             # Global styles
+│   ├── package.json
+│   └── .env.example
+├── docs/                       # Architecture, Scrum, design, delivery docs
+├── img/                        # README and portfolio screenshots
+└── README.md
 ```
-
----
 
 ## Getting Started
 
-### What you need
+### Prerequisites
 
-- Node.js 18 or higher
-- A PostgreSQL database (you can use a free [Supabase](https://supabase.com) project)
-- A Groq API key (free at [console.groq.com](https://console.groq.com))
+- Node.js 20 or newer
+- npm
+- PostgreSQL database, for example Supabase
+- Groq API key for AI features
 
-### 1. Clone the repo
+### 1. Clone
 
 ```bash
 git clone https://github.com/yaboula/Recetas-Hacendado.git
 cd Recetas-Hacendado
 ```
 
-### 2. Backend setup
+### 2. Backend
 
 ```bash
 cd backend
-npm install
-
-# Create your .env file from the template
+npm ci
 cp .env.example .env
-# Fill in DATABASE_URL, JWT_SECRET, GROQ_API_KEY
-
-# Run migrations and seed data
 npm run setup-db
-
-# Start the dev server
 npm run dev
-# API runs on http://localhost:3001
 ```
 
-### 3. Frontend setup
+The API runs by default at `http://localhost:3001/api/v1`.
+
+### 3. Frontend
 
 ```bash
 cd frontend
-npm install
-
+npm ci
 cp .env.example .env
-# Default VITE_API_URL is http://localhost:3001/api/v1
-
 npm run dev
-# App runs on http://localhost:5173
 ```
 
-### Environment Variables
+The Vite app runs by default at `http://localhost:5173`.
 
-<details>
-<summary><strong>Backend .env</strong></summary>
+## Environment Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `DATABASE_URL` | PostgreSQL connection string | `postgresql://user:pass@host:5432/db` |
-| `JWT_SECRET` | Secret for JWT signing (min 32 chars) | `your_secret_key_here` |
-| `JWT_EXPIRES_IN` | Token expiration | `7d` |
-| `PORT` | Server port | `3001` |
-| `GROQ_API_KEY` | Groq Cloud API key | `gsk_...` |
-| `GROQ_TEXT_MODEL` | Model for text generation | `llama-3.3-70b-versatile` |
-| `GROQ_VISION_MODEL` | Model for vision tasks | `meta-llama/llama-4-scout-17b-16e-instruct` |
+### Backend
 
-</details>
+| Variable | Purpose |
+|----------|---------|
+| `DATABASE_URL` | PostgreSQL connection string |
+| `JWT_SECRET` | Secret used to sign JWT tokens |
+| `JWT_EXPIRES_IN` | Token lifetime, for example `7d` |
+| `PORT` | Local API port |
+| `NODE_ENV` | Runtime environment |
+| `FRONTEND_URL` | Optional allowed frontend origin for CORS |
+| `GROQ_API_KEY` | Groq API key |
+| `GROQ_TEXT_MODEL` | Text model for AI features |
+| `GROQ_VISION_MODEL` | Vision model for pantry scanning |
 
-<details>
-<summary><strong>Frontend .env</strong></summary>
+### Frontend
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `VITE_API_URL` | Backend API base URL | `http://localhost:3001/api/v1` |
+| Variable | Purpose |
+|----------|---------|
+| `VITE_API_URL` | Backend API base URL |
 
-</details>
+## Technical Highlights
 
----
+- **Shopping list consolidation:** backend logic aggregates ingredient quantities across multiple recipes and calculates required product packages.
+- **Cost estimation:** recipe and list prices are derived from mapped product data and serving quantities.
+- **AI integration behind backend routes:** the frontend does not call Groq directly; AI requests are proxied through controlled backend services.
+- **Voice-first cooking mode:** native browser APIs support narration, voice commands, timers, wake lock, and haptic/audio feedback.
+- **Normalized data model:** recipes, ingredients, products, users, favorites, and shopping-list items are separated for maintainability.
+- **Graceful fallbacks:** AI-assisted cooking mode and browser APIs fall back when unavailable.
 
-## How it was built
+## Professional Practices
 
-The project was developed using Scrum across 4 sprints:
+- Scrum delivery over 4 sprints with backlog, sprint documentation, and review artifacts in `docs/`.
+- Modular backend organized by domain modules: `auth`, `recetas`, `lista`, `favoritos`, and `ai`.
+- Frontend API service layer separated from UI components.
+- Request validation through Joi middleware.
+- JWT authentication and password hashing with bcryptjs.
+- Environment examples for local setup without committing secrets.
+- GitHub Actions CI for frontend install/lint/build and backend install.
+- Refactor plan documented separately to show technical debt awareness without risky late-stage rewrites.
 
-| Sprint | Duration | What we built |
-|--------|----------|---------------|
-| 1 | 2 weeks | Auth system (JWT + bcrypt), database schema, project scaffolding, login/register pages |
-| 2 | 2 weeks | Recipe catalog, detail page with portion scaling, recipe cards, home page |
-| 3 | 2 weeks | Shopping list with ingredient consolidation, aisle grouping, pricing, favorites |
-| 4 | 2 weeks | AI assistant (Groq), hands-free cooking mode, meal planner, voice controls, product swapping |
+## Refactor Plan
 
-All the Scrum documentation (Product Backlog, Sprint Plans, Architecture Decisions, UI Design System) is in the [`/docs`](./docs) folder.
+See [docs/Refactor_Plan.md](docs/Refactor_Plan.md) for the current plan around oversized frontend pages, including `RecetaPage`, `ListaPage`, and `PlanificadorPage`.
 
----
+## GitHub Topics Recommendation
 
-## Some technical decisions
+Recommended repository topics:
 
-| What | Why |
-|------|-----|
-| Express 5 instead of Koa or Fastify | Built-in async error handling, no need for wrapper functions |
-| Groq instead of OpenAI | Way faster inference and cheaper. Llama 3 70B quality is more than enough for recipe suggestions |
-| Supabase instead of self-hosted PostgreSQL | Free tier, managed backups, built-in connection pooling |
-| Tailwind v4 instead of CSS Modules | Fast prototyping, and we needed to replicate Mercadona's exact color palette with design tokens |
-| Web Speech API instead of a third-party service | Zero dependencies for voice features, works offline for TTS |
-| React Context instead of Redux | The app's global state is just auth + cart. Context is simpler and sufficient |
-| Radix UI for dialogs and sheets | Accessibility out of the box (focus trapping, keyboard nav, ARIA) |
+```text
+react
+vite
+nodejs
+express
+postgresql
+supabase
+full-stack
+academic-project
+scrum
+meal-planning
+shopping-list
+ai
+groq
+portfolio
+university-project
+```
 
----
+## Documentation
+
+- [Architecture and Stack](docs/Architecture_and_Stack.md)
+- [Scrum Methodology](docs/Scrum_Methodology.md)
+- [UI Design System](docs/UI_Design_System.md)
+- [Refactor Plan](docs/Refactor_Plan.md)
 
 ## Author
 
-**Yahya Aboulafiya** — Full Stack Developer
+**Yahya Aboulafiya** - Full Stack Developer
 
-[![GitHub](https://img.shields.io/badge/GitHub-yaboula-181717?style=flat-square&logo=github)](https://github.com/yaboula)
-
----
+[GitHub: yaboula](https://github.com/yaboula)
 
 ## License
 

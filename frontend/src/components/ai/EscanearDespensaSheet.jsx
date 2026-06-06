@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Camera,
-  X,
   Loader2,
   RotateCcw,
   ArrowRight,
@@ -15,7 +14,6 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetClose,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { scanPantry } from "@/api/ai";
@@ -155,12 +153,7 @@ export default function EscanearDespensaSheet({ open, onOpenChange }) {
         data-testid="ai-scan-sheet"
       >
         <SheetHeader className="px-6 pt-6 pb-4 hairline-b shrink-0">
-          <div className="flex items-center justify-between">
             <span className="eyebrow">Asistente de visión</span>
-            <SheetClose className="text-ink-soft hover:text-ink transition-colors">
-              <X className="h-5 w-5" />
-            </SheetClose>
-          </div>
           <SheetTitle asChild>
             <h2 className="display-md mt-2">Visión IA</h2>
           </SheetTitle>

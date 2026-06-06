@@ -12,7 +12,6 @@ import {
   Sparkles,
   Users,
   Volume2,
-  X,
 } from "lucide-react";
 import { toast } from "sonner";
 import { getMealAssistant } from "@/api/ai";
@@ -23,7 +22,6 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetClose,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
@@ -226,12 +224,7 @@ export default function QueCocinoHoySheet({ open, onOpenChange }) {
       >
         {/* ── Header ── */}
         <SheetHeader className="px-6 pt-6 pb-4 hairline-b shrink-0">
-          <div className="flex items-center justify-between">
-            <span className="eyebrow">Asistente de cocina</span>
-            <SheetClose className="text-ink-soft hover:text-ink transition-colors">
-              <X className="h-5 w-5" />
-            </SheetClose>
-          </div>
+          <span className="eyebrow">Asistente de cocina</span>
           <SheetTitle asChild>
             <h2 className="display-md mt-2">¿Qué cocino hoy?</h2>
           </SheetTitle>
