@@ -37,7 +37,9 @@ The repository includes full-page app screenshots in the `img/` folder:
 |------|---------|---------------|---------|
 | ![Home screen](img/app_home.png) | ![Catalog screen](img/app_catalogo.png) | ![Shopping list screen](img/app_lista.png) | ![Planner screen](img/app_planificador.png) |
 
-Add a short demo video or GIF here when available, ideally showing: recipe selection -> add to shopping list -> package consolidation -> AI weekly planner.
+| AI Assistant | AI Suggestions | Pantry Scanner |
+|--------------|----------------|----------------|
+| ![AI assistant filters](img/app_ai_assistant.png) | ![AI recipe suggestions](img/app_ai_results.png) | ![AI pantry scanner](img/app_ai_vision.png) |
 
 ## Tech Stack
 
